@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :refresh_tokens, dependent: :delete_all
   has_one :wallet, as: :entityable, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, email: true
