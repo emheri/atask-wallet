@@ -34,4 +34,22 @@ RSpec.describe Wallet, type: :model do
       expect(wallet).to_not be_valid
     end
   end
+
+  it 'should return correct balance' do
+    destination_wallet = create(:wallet, :for_team)
+    expect(wallet.sum_transactions_balance).to eq(0)
+    wallet.save
+    TransactionServices::Deposit.new(wallet_id: wallet.id, amount: 100).call
+    expect(wallet.reload.sum_transactions_balance).to eq(100)
+
+    TransactionServices::Withdraw.new(wallet_id: wallet.id, amount: 25).call
+    expect(wallet.reload.sum_transactions_balance).to eq(75)
+
+    TransactionServices::Transfer.new(
+      source_wallet_id: wallet.id,
+      destination_wallet_id: destination_wallet.id,
+      amount: 25
+    ).call
+    expect(wallet.reload.sum_transactions_balance).to eq(50)
+  end
 end
