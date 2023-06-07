@@ -11,6 +11,13 @@ Rails.application.routes.draw do
           post 'transfer'
         end
       end
+
+      resources :stocks, only: [] do
+        collection do
+          get 'price_all'
+          get 'price'
+        end
+      end
     end
   end
 end
