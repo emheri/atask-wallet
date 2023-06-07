@@ -38,4 +38,13 @@ module Response
       }, status: :not_found
     )
   end
+
+  def render_bad_request(exception)
+    render_raw_response(
+      {
+        title: Rack::Utils::HTTP_STATUS_CODES[400],
+        detail: exception.message
+      }, status: :bad_request
+    )
+  end
 end

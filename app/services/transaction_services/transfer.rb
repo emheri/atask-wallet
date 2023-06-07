@@ -14,7 +14,7 @@ module TransactionServices
     end
 
     def create_source_transaction!
-      @source_wallet.transactions.create!(
+      @source_wallet.transactions.transfer.create!(
         amount: @amount,
         destination_wallet_id: @destination_wallet.id
       )

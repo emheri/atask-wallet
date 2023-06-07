@@ -6,6 +6,7 @@ ruby '3.2.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'httparty'
+gem 'jbuilder'
 gem 'jwt'
 gem 'oj', '~> 3.13.16'
 gem 'pg', '~> 1.1'

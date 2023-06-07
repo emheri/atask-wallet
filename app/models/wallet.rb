@@ -9,6 +9,16 @@ class Wallet < ApplicationRecord
 
   after_initialize :set_default_balance, if: -> { new_record? }
 
+  def sum_transactions_balance
+    transactions.inject(0) do |sum, t|
+      if t.deposit? || (t.transfer? && t.source_wallet_id.present?)
+        sum + t.amount
+      else
+        sum - t.amount
+      end
+    end
+  end
+
   private
 
   def set_default_balance

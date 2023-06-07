@@ -62,3 +62,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def access_token
+  post '/api/v1/auth/sign_in', params: { email: user.email, password: '123456' }
+  response.parsed_body['data']['access_token']
+end
